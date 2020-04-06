@@ -18,11 +18,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var notificationManager: NotificationManager
     private var radioPlayerService: RadioPlayerService? = null
     private var isRadioPlayerServiceBound = false
+    private lateinit var equalizerView: EqualizerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        equalizerView = findViewById(R.id.equalizer_view)
     }
 
     override fun onStart() {
@@ -35,15 +37,24 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
     }
 
-    fun togglePlay(view: View) {
+    fun togglePlay(view: View?) {
         if (radioPlayerService?.isPlaying() == true) {
             radioPlayerService?.pause()
-            play_fab.setImageResource(android.R.drawable.ic_media_play)
+            showPaused()
         } else {
             radioPlayerService?.play()
-            play_fab.setImageResource(android.R.drawable.ic_media_pause)
-
+            showPlaying()
         }
+    }
+
+    private fun showPlaying() {
+        play_fab.setImageResource(android.R.drawable.ic_media_pause)
+        equalizerView.animateBars()
+    }
+
+    private fun showPaused() {
+        play_fab.setImageResource(android.R.drawable.ic_media_play)
+        equalizerView.stopBars()
     }
 
     private fun bindRadioPlayerService() {
@@ -74,6 +85,11 @@ class MainActivity : AppCompatActivity() {
             isRadioPlayerServiceBound = true
             play_fab.isClickable = true
             radioPlayerService?.startRadio()
+            if (radioPlayerService?.isPlaying() == true) {
+                showPlaying()
+            } else {
+                showPaused()
+            }
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {

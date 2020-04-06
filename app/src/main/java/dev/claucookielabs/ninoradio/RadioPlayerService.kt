@@ -13,6 +13,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.google.android.exoplayer2.ExoPlaybackException
 import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.Player.STATE_ENDED
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
@@ -81,9 +82,7 @@ class RadioPlayerService : Service() {
             startService(Intent(applicationContext, RadioPlayerService::class.java))
         } catch (ex: IllegalStateException) {
             stopSelf()
-            startService(Intent(applicationContext, RadioPlayerService::class.java))
         }
-        play()
     }
 
     fun play() {
@@ -106,6 +105,8 @@ class RadioPlayerService : Service() {
             player.addListener(object : Player.EventListener {
                 override fun onPlayerError(error: ExoPlaybackException?) {
                     super.onPlayerError(error)
+                    pause()
+                    stopSelf()
                 }
 
                 override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
@@ -128,6 +129,10 @@ class RadioPlayerService : Service() {
                      *
                      * val STATE_ENDED = 4
                      **/
+                    if (playbackState == STATE_ENDED) {
+                        pause()
+                        stopSelf()
+                    }
                     super.onPlayerStateChanged(playWhenReady, playbackState)
                 }
             })
