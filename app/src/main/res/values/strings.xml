@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NinoRadio</string>
+    <string name="media_url_mp3">https://freeuk25.listen2myradio.com/live.mp3?typeportmount=s1_21430_stream</string>
+<!--    <string name="media_url_mp3">http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p</string>-->
+    <string name="playing_radio_station">Escuchando Radio Nino Del Flor</string>
+    <string name="playing_cofrade">Tu radio cofrade</string>
+</resources>
