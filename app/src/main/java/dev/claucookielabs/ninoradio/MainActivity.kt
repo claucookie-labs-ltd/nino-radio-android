@@ -5,9 +5,12 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,6 +40,11 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.info, menu)
+        return true
+    }
+
     fun togglePlay(view: View?) {
         if (radioPlayerService?.isPlaying() == true) {
             radioPlayerService?.pause()
@@ -45,6 +53,24 @@ class MainActivity : AppCompatActivity() {
             radioPlayerService?.play()
             showPlaying()
         }
+    }
+
+    fun showInfo(item: MenuItem) {
+        startActivity(Intent(this, InfoActivity::class.java))
+    }
+
+    fun showInsta(item: MenuItem) {
+        openUrl("https://www.instagram.com/nino.radio")
+    }
+
+    fun showTwitter(item: MenuItem) {
+        openUrl("https://twitter.com/ninoradio")
+    }
+
+    private fun openUrl(url: String) {
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(url)
+        startActivity(i)
     }
 
     private fun showPlaying() {

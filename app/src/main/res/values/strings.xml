@@ -1,7 +1,15 @@
 <resources>
-    <string name="app_name">Nino De Flor</string>
+    <string name="app_name">Nino De Flor Radio</string>
     <string name="media_url_mp3">https://freeuk25.listen2myradio.com/live.mp3?typeportmount=s1_21430_stream</string>
     <string name="playing_radio_station">Escuchando Radio Nino Del Flor</string>
     <string name="playing_cofrade">Tu radio cofrade</string>
     <string name="playing_cofrade_long">Tu radio cofrade: Todas las tardes a las 17:30</string>
+    <string name="info">Información</string>
+    <string name="acknowledgement">Organizar este programa no era tarea fácil, y el exito de éste depende de muchas personas que, paralelamente a su actividad normal, hacen posible que La Radio Nino del Flor funcione y lleve a todos los hogares el sabor de nuestra Semana Santa, este año que tan difícil está siendo.</string>
+    <string name="thanks">Agradecimientos</string>
+    <string name="app_version">Versión:</string>
+    <string name="developer">Claucookie Labs Ltd \nhttps://github.com/claucookie-labs-ltd</string>
+    <string name="insta">Instagram</string>
+    <string name="twitter">Twitter</string>
 </resources>
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_info"
+        android:onClick="showInfo"
+        android:title="@string/info"
+        android:visible="true"
+        app:showAsAction="always" />
+
+    <item
+        android:icon="@drawable/ic_instagram"
+        android:onClick="showInsta"
+        android:title="@string/insta"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:icon="@drawable/ic_twitter"
+        android:onClick="showTwitter"
+        android:title="@string/twitter"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+</menu>
