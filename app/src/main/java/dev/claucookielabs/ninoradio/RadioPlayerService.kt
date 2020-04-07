@@ -31,6 +31,7 @@ class RadioPlayerService : Service() {
     private var playWhenReady = true
     private var currentWindow = 0
     private var playbackPosition = 0L
+    private lateinit var notificationManager: NotificationManager
 
     override fun onBind(intent: Intent?): IBinder? {
         Log.i("Info", "RadioPlayer service Binded")
@@ -52,7 +53,7 @@ class RadioPlayerService : Service() {
 
     override fun onUnbind(intent: Intent?): Boolean {
         Log.i("Info", "RadioPlayer service unBinded")
-        if (!configurationChanged) {
+        if (!configurationChanged && player.isPlaying) {
             Log.i("Info", "RadioPlayer service to foreground")
             startForeground(NOTIFICATION_ID, createNotification())
             isInForeground = true
@@ -69,7 +70,7 @@ class RadioPlayerService : Service() {
     override fun onCreate() {
         super.onCreate()
         Log.i("Info", "RadioPlayer service onCreate")
-
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
 
     override fun onDestroy() {
@@ -133,6 +134,7 @@ class RadioPlayerService : Service() {
                         pause()
                         stopSelf()
                     }
+                    updateNotification()
                     super.onPlayerStateChanged(playWhenReady, playbackState)
                 }
             })
@@ -156,14 +158,18 @@ class RadioPlayerService : Service() {
             .setBadgeIconType(NotificationCompat.BADGE_ICON_SMALL)
             .setColor(ContextCompat.getColor(this, R.color.colorPrimaryLight))
             .setColorized(true)
-            .setOngoing(true)
-            .setPriority(NotificationManagerCompat.IMPORTANCE_LOW)
+            .setOngoing(player.isPlaying)
+            .setPriority(NotificationManagerCompat.IMPORTANCE_DEFAULT)
             .setSmallIcon(R.drawable.ic_nino_notif)
             .setTicker(content)
             .setContentIntent(PendingIntent.getActivity(this, 0, intent, 0))
             .setWhen(System.currentTimeMillis())
 
         return builder.build()
+    }
+
+    private fun updateNotification() {
+        notificationManager.notify(NOTIFICATION_ID, createNotification())
     }
 
     private fun createNotificationChannel(): String {
@@ -175,8 +181,6 @@ class RadioPlayerService : Service() {
             )
             channel.lightColor = R.color.colorPrimaryLight
             channel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
-            val notificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
             return channel.id
         }
