@@ -38,8 +38,10 @@ class InfoActivity : AppCompatActivity() {
             appendln("María Vega")
             appendln("Patricia Haurie")
             appendln()
-            bold { appendln("Colaboradores especiales:") }
+            bold { appendln("Meteorología:") }
             appendln("Juan Beltrán")
+            appendln()
+            bold { appendln("Colaboradores especiales:") }
             appendln("Guillermo Garcia-Junco")
             appendln("María Vega Cabello ")
             appendln()
