@@ -158,7 +158,7 @@ class RadioPlayerService : Service() {
             .setColorized(true)
             .setOngoing(true)
             .setPriority(NotificationManagerCompat.IMPORTANCE_LOW)
-            .setSmallIcon(R.drawable.ic_android_notif)
+            .setSmallIcon(R.drawable.ic_nino_notif)
             .setTicker(content)
             .setContentIntent(PendingIntent.getActivity(this, 0, intent, 0))
             .setWhen(System.currentTimeMillis())
